@@ -1,0 +1,27 @@
+.myDialog{
+  position: absolute;
+  top: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(1, 1, 1, .6);
+}
+.myDialogPanel{ 
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 20%;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.myDialogTitle{
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  background-color: #ddd;
+}
+.myDialogContent{
+  padding: 10px;
+}
