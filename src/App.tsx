@@ -1,12 +1,12 @@
 import { useState, useCallback } from "react";
-import store, { useRootState } from "./store";
-import logo from "./logo.svg";
+import { useRootState, dispatch } from "./store";
 import Dialog from "./Components/Dialog";
-import MyInfo from './Components/MyInfo'
+import MyInfo from "./Components/MyInfo";
+import ChildInfo from "./Components/ChildInfo";
 import "./App.css";
 let i = 0;
 function App() {
-  const name = useRootState((state) => state.global.name);
+  const { name, childList } = useRootState((state) => state.global);
   const [dialogShow, setDialogShow] = useState(false);
   function showDialog() {
     setDialogShow(true);
@@ -14,30 +14,27 @@ function App() {
   const handClose = useCallback(() => {
     setDialogShow(false);
   }, []);
-  function changeName() {
-    store.dispatch({ type: "changeName", payload: "tovinping" + ++i });
-  }
+  const changeName = () => {
+    dispatch({ type: "updateName", payload: "tovinping" + ++i });
+  };
+  const addChild = () => {
+    dispatch({ type: "addChild", payload: { id: ++i, name: "child" + i } });
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
       <section>
         <h1>my name is: {name}</h1>
         <button onClick={showDialog}>show Dialog</button>
         <button onClick={changeName}>change name</button>
-        <Dialog visible={dialogShow} onClose={handClose} children={MyInfo}></Dialog>
+        <button onClick={addChild}>add child</button>
+        <Dialog visible={dialogShow} onClose={handClose}>
+          <MyInfo />
+        </Dialog>
+        <section>
+          {childList.map((childId) => (
+            <ChildInfo key={childId} childId={childId} />
+          ))}
+        </section>
       </section>
     </div>
   );

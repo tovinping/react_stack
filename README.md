@@ -1,5 +1,7 @@
 # Getting Started with Create React App React.createPortals and redux
 
+## 搞不懂为什么Dialog有children的时候每次更新name会触发dialog渲染
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

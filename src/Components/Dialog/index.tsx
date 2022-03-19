@@ -14,6 +14,7 @@ function Dialog(props: React.PropsWithChildren<IDialog>) {
   const elRef = useRef<HTMLElement>();
 
   const handCreateElement = useCallback(() => {
+    if (elRef.current) return;
     const divEl = document.createElement("div");
     divEl.className = "myDialog";
     elRef.current = divEl;
@@ -40,7 +41,7 @@ function Dialog(props: React.PropsWithChildren<IDialog>) {
     setMyVisible(visible);
   }, [visible, handRemoveChild, handCreateElement]);
 
-  console.log("dialog render...", myVisible, visible);
+  console.log("dialog render....", visible);
   if (!myVisible || !elRef.current) return null;
   return ReactDOM.createPortal(
     <section className="myDialogPanel">
@@ -51,7 +52,7 @@ function Dialog(props: React.PropsWithChildren<IDialog>) {
         </span>
         <span onClick={handClose}>X</span>
       </header>
-      <section className="myDialogContent">{children}</section>
+      <section className="myDialogChildren">{children}</section>
     </section>,
     elRef.current
   );
